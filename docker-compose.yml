@@ -1,0 +1,17 @@
+services:
+  datadog-load-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: datadog-load-test
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    environment:
+      JAVA_OPTS: "-XX:+UseContainerSupport -XX:ActiveProcessorCount=2 -Xms512m -Xmx1536m"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4G
